@@ -3,19 +3,2457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiekBorkum</title>
+
+    <title>KiekBorkum – Borkum entdecken. Geschichten erleben.</title>
+
+    <meta
+        name="description"
+        content="KiekBorkum ist dein digitaler Entdecker für Borkum. Entdecke besondere Orte, Geschichten, Hintergründe und Entdeckertipps auf der Insel."
+    >
+
+    <meta name="theme-color" content="#071827">
+
+    <style>
+
+        /* ==========================================================
+           KIEKBORKUM
+           ----------------------------------------------------------
+           Farbwelt abgeleitet aus dem KiekBorkum App-Icon:
+           Nordsee · Abendhimmel · Sand · Leuchtturm
+           ========================================================== */
+
+        :root {
+            --night: #071827;
+            --navy: #092b49;
+            --navy-soft: #114765;
+
+            --sea: #087ea9;
+            --turquoise: #13b6ca;
+            --turquoise-soft: #bcecf1;
+
+            --sun: #ff7a32;
+            --sun-soft: #ffc16f;
+
+            --sand: #f2cf91;
+            --sand-light: #fff6e7;
+
+            --paper: #fbfaf7;
+            --white: #ffffff;
+
+            --text: #102437;
+            --text-soft: #627181;
+            --border: rgba(13, 45, 68, 0.10);
+
+            --shadow:
+                0 30px 80px rgba(7, 24, 39, 0.10);
+
+            --shadow-small:
+                0 15px 40px rgba(7, 24, 39, 0.08);
+
+            --radius-large: 34px;
+            --radius-medium: 24px;
+            --radius-small: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "Segoe UI",
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            background: var(--paper);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            width: min(1160px, calc(100% - 40px));
+            margin-inline: auto;
+        }
+
+        .section {
+            padding: 110px 0;
+        }
+
+        .section-small {
+            padding: 70px 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 18px;
+
+            color: var(--sea);
+
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+
+            width: 26px;
+            height: 2px;
+
+            border-radius: 100px;
+            background: var(--turquoise);
+        }
+
+        h1,
+        h2,
+        h3 {
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+        }
+
+        h2 {
+            max-width: 850px;
+
+            margin-bottom: 24px;
+
+            color: var(--night);
+
+            font-size: clamp(2.45rem, 5vw, 4.4rem);
+            font-weight: 800;
+        }
+
+        .section-intro {
+            max-width: 720px;
+
+            color: var(--text-soft);
+
+            font-size: 1.17rem;
+        }
+
+
+        /* ==========================================================
+           NAVIGATION
+           ========================================================== */
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(7, 24, 39, 0.74);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+        .nav {
+            min-height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: 800;
+            font-size: 1.18rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-symbol {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            color: white;
+
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--sun) 0%,
+                    var(--sun-soft) 45%,
+                    var(--turquoise) 100%
+                );
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.30),
+                0 7px 20px rgba(0,0,0,0.18);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.78);
+
+            font-size: 0.93rem;
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-cta {
+            padding: 10px 17px;
+
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        .menu-button {
+            display: none;
+
+            width: 44px;
+            height: 44px;
+
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+
+            background: rgba(255,255,255,0.08);
+            color: white;
+
+            font-size: 1.25rem;
+        }
+
+
+        /* ==========================================================
+           HERO
+           ========================================================== */
+
+        .hero {
+            position: relative;
+
+            min-height: 900px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 160px 0 160px;
+
+            overflow: hidden;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 72% 43%,
+                    rgba(255, 116, 42, 0.31),
+                    transparent 21%
+                ),
+                radial-gradient(
+                    circle at 58% 10%,
+                    rgba(33, 150, 206, 0.20),
+                    transparent 36%
+                ),
+                linear-gradient(
+                    160deg,
+                    #06131f 0%,
+                    #08253e 48%,
+                    #075478 100%
+                );
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 640px;
+            height: 640px;
+
+            right: -240px;
+            top: -220px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 390px;
+            height: 390px;
+
+            right: -80px;
+            top: -90px;
+
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 50%;
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 2;
+
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            align-items: center;
+
+            gap: 70px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 28px;
+            padding: 8px 14px;
+
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+
+            background: rgba(255,255,255,0.07);
+
+            color: rgba(255,255,255,0.86);
+
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .hero-label-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--turquoise);
+
+            box-shadow: 0 0 18px var(--turquoise);
+        }
+
+        .hero h1 {
+            margin-bottom: 28px;
+
+            max-width: 760px;
+
+            color: white;
+
+            font-size: clamp(3.7rem, 7vw, 7rem);
+            font-weight: 850;
+
+            letter-spacing: -0.065em;
+        }
+
+        .hero h1 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--sun-soft),
+                    var(--sun)
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero-copy {
+            max-width: 650px;
+
+            margin-bottom: 38px;
+
+            color: rgba(255,255,255,0.72);
+
+            font-size: clamp(1.05rem, 2vw, 1.28rem);
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            min-height: 52px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            padding: 0 23px;
+
+            border-radius: 100px;
+
+            text-decoration: none;
+
+            font-size: 0.95rem;
+            font-weight: 750;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: var(--night);
+
+            background: white;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.20);
+        }
+
+        .button-secondary {
+            color: white;
+
+            border: 1px solid rgba(255,255,255,0.18);
+
+            background: rgba(255,255,255,0.07);
+        }
+
+        .hero-note {
+            margin-top: 20px;
+
+            color: rgba(255,255,255,0.48);
+
+            font-size: 0.82rem;
+        }
+
+
+        /* ==========================================================
+           PHONE MOCKUP
+           ========================================================== */
+
+        .phone-area {
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-glow {
+            position: absolute;
+
+            width: 440px;
+            height: 440px;
+
+            top: 110px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255, 136, 66, 0.28),
+                    transparent 65%
+                );
+
+            filter: blur(6px);
+        }
+
+        .phone {
+            position: relative;
+            z-index: 2;
+
+            width: min(340px, 82vw);
+
+            padding: 10px;
+
+            border: 1px solid rgba(255,255,255,0.19);
+            border-radius: 50px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #182836,
+                    #050a0f
+                );
+
+            box-shadow:
+                0 60px 100px rgba(0,0,0,0.45),
+                inset 0 1px 1px rgba(255,255,255,0.30);
+
+            transform:
+                rotate(2.2deg);
+        }
+
+        .phone-screen {
+            position: relative;
+
+            min-height: 650px;
+
+            overflow: hidden;
+
+            border-radius: 41px;
+
+            background: #f6f6f2;
+        }
+
+        .dynamic-island {
+            position: absolute;
+
+            top: 13px;
+            left: 50%;
+
+            z-index: 10;
+
+            width: 105px;
+            height: 29px;
+
+            transform: translateX(-50%);
+
+            border-radius: 100px;
+
+            background: #050505;
+        }
+
+        .mock-map {
+            position: relative;
+
+            height: 320px;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 70% 37%,
+                    rgba(255, 159, 78, 0.88),
+                    transparent 13%
+                ),
+                linear-gradient(
+                    170deg,
+                    #0a3760 0%,
+                    #1286a3 52%,
+                    #0bc0ca 100%
+                );
+        }
+
+        .mock-map::before,
+        .mock-map::after {
+            content: "";
+
+            position: absolute;
+
+            left: -12%;
+
+            width: 125%;
+            height: 100px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.85);
+        }
+
+        .mock-map::before {
+            bottom: -50px;
+
+            transform: rotate(-5deg);
+        }
+
+        .mock-map::after {
+            bottom: -75px;
+
+            background: #e5c98e;
+
+            transform: rotate(4deg);
+        }
+
+        .mock-topbar {
+            position: absolute;
+
+            top: 58px;
+            left: 22px;
+            right: 22px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: white;
+        }
+
+        .mock-topbar strong {
+            font-size: 1.15rem;
+        }
+
+        .mock-location-pin {
+            position: absolute;
+
+            top: 175px;
+            left: 53%;
+
+            width: 22px;
+            height: 22px;
+
+            border: 5px solid white;
+            border-radius: 50%;
+
+            background: var(--sun);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.30);
+        }
+
+        .mock-content {
+            position: relative;
+
+            z-index: 4;
+
+            padding: 24px 22px 18px;
+        }
+
+        .mock-small {
+            margin-bottom: 5px;
+
+            color: var(--sea);
+
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .mock-content h3 {
+            margin-bottom: 8px;
+
+            color: var(--night);
+
+            font-size: 1.5rem;
+        }
+
+        .mock-distance {
+            display: inline-flex;
+
+            margin: 5px 0 18px;
+            padding: 6px 10px;
+
+            border-radius: 100px;
+
+            color: #076f84;
+            background: #dff5f7;
+
+            font-size: 0.72rem;
+            font-weight: 750;
+        }
+
+        .mock-text {
+            color: #637382;
+
+            font-size: 0.78rem;
+            line-height: 1.55;
+        }
+
+        .mock-card {
+            margin-top: 20px;
+            padding: 15px;
+
+            border: 1px solid rgba(8, 49, 73, 0.08);
+            border-radius: 17px;
+
+            background: white;
+
+            box-shadow: 0 8px 25px rgba(20,50,70,0.06);
+        }
+
+        .mock-card-title {
+            color: var(--night);
+
+            font-size: 0.82rem;
+            font-weight: 800;
+        }
+
+        .mock-card-sub {
+            margin-top: 3px;
+
+            color: #7b8791;
+
+            font-size: 0.69rem;
+        }
+
+        .mock-tabs {
+            position: absolute;
+
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+
+            padding: 15px 8px 18px;
+
+            border-top: 1px solid rgba(0,0,0,0.06);
+
+            background: rgba(255,255,255,0.95);
+        }
+
+        .mock-tab {
+            color: #80909d;
+
+            text-align: center;
+            font-size: 0.59rem;
+            font-weight: 700;
+        }
+
+        .mock-tab.active {
+            color: var(--sea);
+        }
+
+
+        /* ==========================================================
+           WAVE DIVIDER
+           ========================================================== */
+
+        .hero-wave {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: -1px;
+
+            height: 100px;
+        }
+
+        .hero-wave svg {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+        }
+
+
+        /* ==========================================================
+           INTRO
+           ========================================================== */
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 80px;
+
+            align-items: start;
+        }
+
+        .intro-big {
+            color: var(--night);
+
+            font-size: clamp(1.75rem, 3vw, 2.8rem);
+            font-weight: 750;
+            line-height: 1.22;
+            letter-spacing: -0.035em;
+        }
+
+        .intro-copy {
+            color: var(--text-soft);
+
+            font-size: 1.1rem;
+        }
+
+        .intro-copy p + p {
+            margin-top: 18px;
+        }
+
+
+        /* ==========================================================
+           FEATURES
+           ========================================================== */
+
+        .features {
+            background: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            min-height: 310px;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 28px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-medium);
+
+            background: var(--paper);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow: var(--shadow-small);
+        }
+
+        .feature-number {
+            width: 46px;
+            height: 46px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 42px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--navy-soft),
+                    var(--sea)
+                );
+
+            font-size: 0.8rem;
+            font-weight: 850;
+        }
+
+        .feature-card:nth-child(2) .feature-number {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--sea),
+                    var(--turquoise)
+                );
+        }
+
+        .feature-card:nth-child(3) .feature-number {
+            background:
+                linear-gradient(
+                    145deg,
+                    #db652a,
+                    var(--sun-soft)
+                );
+        }
+
+        .feature-card:nth-child(4) .feature-number {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--navy),
+                    #285978
+                );
+        }
+
+        .feature-card h3 {
+            margin-bottom: 12px;
+
+            color: var(--night);
+
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-soft);
+
+            font-size: 0.94rem;
+        }
+
+        .feature-status {
+            margin-top: auto;
+            padding-top: 20px;
+
+            color: var(--sea);
+
+            font-size: 0.76rem;
+            font-weight: 750;
+        }
+
+
+        /* ==========================================================
+           HOW IT WORKS
+           ========================================================== */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            margin-top: 65px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .step {
+            position: relative;
+
+            padding: 38px 42px 0 0;
+        }
+
+        .step::before {
+            content: "";
+
+            position: absolute;
+
+            width: 13px;
+            height: 13px;
+
+            top: -7px;
+            left: 0;
+
+            border-radius: 50%;
+
+            background: var(--turquoise);
+
+            box-shadow:
+                0 0 0 7px var(--paper);
+        }
+
+        .step-count {
+            color: var(--sun);
+
+            font-size: 0.73rem;
+            font-weight: 850;
+            letter-spacing: 0.08em;
+        }
+
+        .step h3 {
+            margin: 12px 0;
+
+            color: var(--night);
+
+            font-size: 1.55rem;
+        }
+
+        .step p {
+            color: var(--text-soft);
+
+            font-size: 0.95rem;
+        }
+
+
+        /* ==========================================================
+           PLACES
+           ========================================================== */
+
+        .places {
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #061725,
+                    #0b304d
+                );
+        }
+
+        .places .eyebrow {
+            color: var(--turquoise);
+        }
+
+        .places h2 {
+            color: white;
+        }
+
+        .places .section-intro {
+            color: rgba(255,255,255,0.60);
+        }
+
+        .place-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 16px;
+
+            margin-top: 56px;
+        }
+
+        .place-card {
+            min-height: 340px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+            align-items: flex-end;
+
+            padding: 26px;
+
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: var(--radius-medium);
+
+            background:
+                linear-gradient(
+                    160deg,
+                    #0c5372,
+                    #092a45
+                );
+        }
+
+        .place-card:nth-child(2) {
+            background:
+                linear-gradient(
+                    160deg,
+                    #bf5c31,
+                    #713f39 52%,
+                    #0d293f
+                );
+        }
+
+        .place-card:nth-child(3) {
+            background:
+                linear-gradient(
+                    160deg,
+                    #0a7087,
+                    #07334e
+                );
+        }
+
+        .place-card:nth-child(4) {
+            background:
+                linear-gradient(
+                    160deg,
+                    #d0924c,
+                    #7e6043 48%,
+                    #17384b
+                );
+        }
+
+        .place-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -70px;
+            top: -45px;
+
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 50%;
+        }
+
+        .place-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .place-type {
+            margin-bottom: 7px;
+
+            color: rgba(255,255,255,0.58);
+
+            font-size: 0.7rem;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+        }
+
+        .place-card h3 {
+            color: white;
+
+            font-size: 1.45rem;
+        }
+
+
+        /* ==========================================================
+           AUDIO / FUTURE
+           ========================================================== */
+
+        .audio-panel {
+            position: relative;
+
+            overflow: hidden;
+
+            display: grid;
+            grid-template-columns: 1fr 0.8fr;
+
+            gap: 60px;
+            align-items: center;
+
+            padding: 68px;
+
+            border-radius: var(--radius-large);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8e5bd,
+                    #fff7e8
+                );
+        }
+
+        .audio-panel::after {
+            content: "";
+
+            position: absolute;
+
+            width: 390px;
+            height: 390px;
+
+            right: -100px;
+            bottom: -190px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 139, 68, 0.18);
+        }
+
+        .audio-panel h2 {
+            font-size: clamp(2.1rem,4vw,3.5rem);
+        }
+
+        .audio-copy p {
+            max-width: 650px;
+
+            color: #725f48;
+        }
+
+        .audio-visual {
+            position: relative;
+            z-index: 2;
+
+            min-height: 190px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+        }
+
+        .audio-bar {
+            width: 8px;
+
+            border-radius: 100px;
+
+            background: var(--sun);
+        }
+
+        .audio-bar:nth-child(1) { height: 38px; opacity: .5; }
+        .audio-bar:nth-child(2) { height: 72px; opacity: .7; }
+        .audio-bar:nth-child(3) { height: 105px; }
+        .audio-bar:nth-child(4) { height: 145px; }
+        .audio-bar:nth-child(5) { height: 92px; }
+        .audio-bar:nth-child(6) { height: 125px; }
+        .audio-bar:nth-child(7) { height: 65px; opacity: .75; }
+        .audio-bar:nth-child(8) { height: 42px; opacity: .55; }
+
+
+        /* ==========================================================
+           KIEK FAMILY
+           ========================================================== */
+
+        .family {
+            background: white;
+        }
+
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+
+            gap: 18px;
+
+            margin-top: 58px;
+        }
+
+        .family-card {
+            min-height: 285px;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 30px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-medium);
+
+            background: var(--paper);
+        }
+
+        .family-card:first-child {
+            color: white;
+
+            border: 0;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--night),
+                    #0a4d71
+                );
+        }
+
+        .family-status {
+            align-self: flex-start;
+
+            margin-bottom: 50px;
+            padding: 7px 11px;
+
+            border-radius: 100px;
+
+            color: var(--sea);
+            background: #dff5f7;
+
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .family-card:first-child .family-status {
+            color: white;
+            background: rgba(255,255,255,0.12);
+        }
+
+        .family-card h3 {
+            margin-bottom: 10px;
+
+            font-size: 1.65rem;
+        }
+
+        .family-card p {
+            color: var(--text-soft);
+
+            font-size: 0.92rem;
+        }
+
+        .family-card:first-child p {
+            color: rgba(255,255,255,0.63);
+        }
+
+
+        /* ==========================================================
+           IDEA
+           ========================================================== */
+
+        .idea-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+
+            gap: 80px;
+            align-items: start;
+        }
+
+        .quote {
+            padding: 32px;
+
+            border-left: 4px solid var(--sun);
+            border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+
+            background: white;
+
+            box-shadow: var(--shadow-small);
+        }
+
+        .quote p {
+            color: var(--night);
+
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .idea-copy {
+            color: var(--text-soft);
+
+            font-size: 1.05rem;
+        }
+
+        .idea-copy p + p {
+            margin-top: 18px;
+        }
+
+
+        /* ==========================================================
+           FINAL CTA
+           ========================================================== */
+
+        .final-cta {
+            padding: 120px 0;
+
+            color: white;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at 50% 120%,
+                    rgba(15, 184, 202, 0.30),
+                    transparent 45%
+                ),
+                var(--night);
+        }
+
+        .final-cta h2 {
+            max-width: 800px;
+
+            margin: 0 auto 22px;
+
+            color: white;
+        }
+
+        .final-cta p {
+            max-width: 650px;
+
+            margin: 0 auto 32px;
+
+            color: rgba(255,255,255,0.63);
+
+            font-size: 1.05rem;
+        }
+
+        .development-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-top: 22px;
+
+            color: rgba(255,255,255,0.52);
+
+            font-size: 0.77rem;
+        }
+
+
+        /* ==========================================================
+           FOOTER
+           ========================================================== */
+
+        footer {
+            padding: 46px 0;
+
+            color: rgba(255,255,255,0.58);
+
+            background: #04101a;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 30px;
+        }
+
+        .footer-brand {
+            color: white;
+
+            font-weight: 800;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 22px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.62);
+
+            text-decoration: none;
+
+            font-size: 0.84rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 8px;
+
+            font-size: 0.76rem;
+        }
+
+
+        /* ==========================================================
+           RESPONSIVE
+           ========================================================== */
+
+        @media (max-width: 960px) {
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-grid,
+            .intro-grid,
+            .idea-grid,
+            .audio-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-grid {
+                gap: 70px;
+            }
+
+            .hero-copy {
+                max-width: 750px;
+            }
+
+            .feature-grid,
+            .place-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .family-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .phone-area {
+                margin-top: 10px;
+            }
+
+            .audio-panel {
+                padding: 48px;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .container {
+                width: min(100% - 28px, 1160px);
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .nav-links {
+                position: absolute;
+
+                top: 76px;
+                left: 14px;
+                right: 14px;
+
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+
+                gap: 0;
+
+                padding: 12px;
+
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 19px;
+
+                background: rgba(7,24,39,0.97);
+
+                box-shadow: 0 30px 60px rgba(0,0,0,0.30);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 10px;
+            }
+
+            .nav-cta {
+                border: 0;
+                background: transparent;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 135px;
+                padding-bottom: 120px;
+            }
+
+            .hero h1 {
+                font-size: clamp(3.4rem, 16vw, 5.3rem);
+            }
+
+            .hero-grid {
+                gap: 60px;
+            }
+
+            .feature-grid,
+            .place-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                min-height: 260px;
+            }
+
+            .feature-number {
+                margin-bottom: 30px;
+            }
+
+            .steps {
+                border-top: none;
+            }
+
+            .step {
+                padding: 28px 0 28px 30px;
+
+                border-left: 1px solid var(--border);
+            }
+
+            .step::before {
+                top: 38px;
+                left: -7px;
+            }
+
+            .place-card {
+                min-height: 240px;
+            }
+
+            .audio-panel {
+                padding: 36px 28px;
+            }
+
+            .audio-visual {
+                min-height: 140px;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+
+        }
+
+    </style>
 </head>
 
+
 <body>
-    <h1>Moin von Borkum! 👋</h1>
-    <h2>KiekBorkum</h2>
 
-    <p>
-        Entdecke Borkum, seine Geschichten und besonderen Orte.
-    </p>
+<header class="site-header">
 
-    <p>
-        Die KiekBorkum-App befindet sich derzeit in Entwicklung.
-    </p>
+    <div class="container nav">
+
+        <a class="brand" href="#top">
+            <span class="brand-symbol">K</span>
+            KiekBorkum
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="#app">Die App</a>
+            <a href="#entdecken">Entdecken</a>
+            <a href="#kiek">Kiek…</a>
+            <a href="#idee">Die Idee</a>
+
+            <a class="nav-cta" href="#status">
+                App-Status
+            </a>
+
+        </nav>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Navigation öffnen"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main id="top">
+
+
+    <!-- ======================================================
+         HERO
+         ====================================================== -->
+
+    <section class="hero">
+
+        <div class="container hero-grid">
+
+            <div>
+
+                <div class="hero-label">
+                    <span class="hero-label-dot"></span>
+                    Aktuell in Entwicklung
+                </div>
+
+                <h1>
+                    Moin Borkum.
+                    <span>Kiek mol genauer hin.</span>
+                </h1>
+
+                <p class="hero-copy">
+                    Entdecke besondere Orte, spannende Hintergründe und
+                    Geschichten auf Borkum – direkt dort, wo sie passiert sind.
+                    KiekBorkum macht aus einem Spaziergang eine Entdeckungsreise.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a class="button button-primary" href="#app">
+                        KiekBorkum entdecken
+                        <span>↓</span>
+                    </a>
+
+                    <a class="button button-secondary" href="#kiek">
+                        Die Kiek-Familie
+                    </a>
+
+                </div>
+
+                <p class="hero-note">
+                    Für iPhone · Veröffentlichung in Vorbereitung
+                </p>
+
+            </div>
+
+
+            <div class="phone-area">
+
+                <div class="phone-glow"></div>
+
+                <div class="phone">
+
+                    <div class="phone-screen">
+
+                        <div class="dynamic-island"></div>
+
+                        <div class="mock-map">
+
+                            <div class="mock-topbar">
+                                <strong>KiekBorkum</strong>
+                                <span>•••</span>
+                            </div>
+
+                            <div class="mock-location-pin"></div>
+
+                        </div>
+
+
+                        <div class="mock-content">
+
+                            <div class="mock-small">
+                                Ort entdecken
+                            </div>
+
+                            <h3>Alter Leuchtturm</h3>
+
+                            <div class="mock-distance">
+                                180 m entfernt
+                            </div>
+
+                            <p class="mock-text">
+                                Einer der Orte, an denen Borkums Geschichte
+                                noch heute sichtbar wird.
+                            </p>
+
+                            <div class="mock-card">
+
+                                <div class="mock-card-title">
+                                    Geschichte entdecken
+                                </div>
+
+                                <div class="mock-card-sub">
+                                    Hintergründe · Besonderheiten · Quellen
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mock-tabs">
+
+                            <div class="mock-tab active">
+                                Entdecken
+                            </div>
+
+                            <div class="mock-tab">
+                                Favoriten
+                            </div>
+
+                            <div class="mock-tab">
+                                Mehr
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-wave">
+
+            <svg
+                viewBox="0 0 1440 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+            >
+
+                <path
+                    fill="#fbfaf7"
+                    d="M0,64
+                       C190,10 330,105 520,60
+                       C720,12 870,92 1050,54
+                       C1230,18 1340,38 1440,22
+                       L1440,100
+                       L0,100 Z">
+                </path>
+
+            </svg>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         INTRO
+         ====================================================== -->
+
+    <section class="section">
+
+        <div class="container intro-grid">
+
+            <div>
+
+                <span class="eyebrow">
+                    Borkum entdecken
+                </span>
+
+                <div class="intro-big">
+                    Die interessantesten Geschichten stehen nicht immer
+                    auf einem Schild.
+                </div>
+
+            </div>
+
+
+            <div class="intro-copy">
+
+                <p>
+                    Borkum ist mehr als Strand, Meer und Urlaub.
+                    Zwischen Leuchttürmen, Walfängergeschichte,
+                    Seezeichen, Inselbahn und Hafen verstecken sich
+                    Geschichten, an denen man leicht vorbeiläuft.
+                </p>
+
+                <p>
+                    KiekBorkum bringt diese Orte zusammen und erzählt,
+                    warum sie besonders sind – kompakt, verständlich
+                    und direkt auf deinem Smartphone.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         FEATURES
+         ====================================================== -->
+
+    <section class="section features" id="app">
+
+        <div class="container">
+
+            <span class="eyebrow">
+                Die App
+            </span>
+
+            <h2>
+                Nicht nur gucken.
+                Wirklich entdecken.
+            </h2>
+
+            <p class="section-intro">
+                KiekBorkum verbindet Orte, Geschichten und deinen
+                aktuellen Standort zu einem digitalen Inselbegleiter.
+            </p>
+
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+                    <h3>Orte in deiner Nähe</h3>
+
+                    <p>
+                        Entdecke interessante POIs und sieh,
+                        wie weit sie von deinem aktuellen Standort
+                        entfernt sind.
+                    </p>
+
+                    <div class="feature-status">
+                        In der App
+                    </div>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-number">
+                        02
+                    </div>
+
+                    <h3>Geschichten dahinter</h3>
+
+                    <p>
+                        Nicht nur Jahreszahlen: Hintergründe,
+                        Besonderheiten und kleine Geschichten
+                        machen Orte lebendig.
+                    </p>
+
+                    <div class="feature-status">
+                        Inhaltlich geprüft
+                    </div>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-number">
+                        03
+                    </div>
+
+                    <h3>Favoriten & Besuche</h3>
+
+                    <p>
+                        Merke dir interessante Orte und behalte
+                        den Überblick darüber, was du auf der Insel
+                        bereits entdeckt hast.
+                    </p>
+
+                    <div class="feature-status">
+                        Persönlich
+                    </div>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-number">
+                        04
+                    </div>
+
+                    <h3>Geschichten hören</h3>
+
+                    <p>
+                        Perspektivisch soll KiekBorkum Geschichten
+                        auch passend zum jeweiligen Ort hörbar machen.
+                    </p>
+
+                    <div class="feature-status">
+                        In Vorbereitung
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         HOW IT WORKS
+         ====================================================== -->
+
+    <section class="section" id="entdecken">
+
+        <div class="container">
+
+            <span class="eyebrow">
+                Ganz einfach
+            </span>
+
+            <h2>
+                Aufmachen.
+                Loslaufen.
+                Mehr sehen.
+            </h2>
+
+            <p class="section-intro">
+                KiekBorkum soll dich nicht an einen festen Rundgang
+                binden. Du entscheidest, wohin du gehst.
+            </p>
+
+
+            <div class="steps">
+
+                <article class="step">
+
+                    <span class="step-count">
+                        SCHRITT 01
+                    </span>
+
+                    <h3>Umschauen</h3>
+
+                    <p>
+                        Öffne KiekBorkum und entdecke,
+                        welche interessanten Orte sich
+                        gerade in deiner Umgebung befinden.
+                    </p>
+
+                </article>
+
+
+                <article class="step">
+
+                    <span class="step-count">
+                        SCHRITT 02
+                    </span>
+
+                    <h3>Hingehen</h3>
+
+                    <p>
+                        Entfernung und Standort helfen dir dabei,
+                        die nächste interessante Ecke der Insel
+                        zu finden.
+                    </p>
+
+                </article>
+
+
+                <article class="step">
+
+                    <span class="step-count">
+                        SCHRITT 03
+                    </span>
+
+                    <h3>Genauer kiek'n</h3>
+
+                    <p>
+                        Vor Ort erfährst du, was den Platz besonders
+                        macht und welche Geschichte sich dahinter
+                        verbirgt.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         PLACES
+         ====================================================== -->
+
+    <section class="section places">
+
+        <div class="container">
+
+            <span class="eyebrow">
+                Ein paar Beispiele
+            </span>
+
+            <h2>
+                Borkum steckt voller Geschichten.
+            </h2>
+
+            <p class="section-intro">
+                Bekannte Wahrzeichen, versteckte Details und Orte,
+                deren Bedeutung man erst auf den zweiten Blick erkennt.
+            </p>
+
+
+            <div class="place-grid">
+
+                <article class="place-card">
+
+                    <div class="place-card-content">
+
+                        <div class="place-type">
+                            Geschichte
+                        </div>
+
+                        <h3>
+                            Alter Leuchtturm
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+                <article class="place-card">
+
+                    <div class="place-card-content">
+
+                        <div class="place-type">
+                            Inselgeschichte
+                        </div>
+
+                        <h3>
+                            Walfängerfriedhof
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+                <article class="place-card">
+
+                    <div class="place-card-content">
+
+                        <div class="place-type">
+                            Maritime Geschichte
+                        </div>
+
+                        <h3>
+                            BORKUMRIFF
+                        </h3>
+
+                    </div>
+
+                </article>
+
+
+                <article class="place-card">
+
+                    <div class="place-card-content">
+
+                        <div class="place-type">
+                            Entdecken
+                        </div>
+
+                        <h3>
+                            Oostbake
+                        </h3>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         AUDIO
+         ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="audio-panel">
+
+                <div class="audio-copy">
+
+                    <span class="eyebrow">
+                        Ausblick
+                    </span>
+
+                    <h2>
+                        Irgendwann erzählt dir Borkum seine
+                        Geschichten selbst.
+                    </h2>
+
+                    <p>
+                        Eine geplante Ausbaustufe von KiekBorkum
+                        soll Geschichten auch als Audio erlebbar machen.
+                        Die Idee: entdecken, ankommen und zuhören –
+                        ohne ständig aufs Display schauen zu müssen.
+                    </p>
+
+                </div>
+
+
+                <div class="audio-visual" aria-hidden="true">
+
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         KIEK FAMILY
+         ====================================================== -->
+
+    <section class="section family" id="kiek">
+
+        <div class="container">
+
+            <span class="eyebrow">
+                Kiek weiter
+            </span>
+
+            <h2>
+                Borkum ist der Anfang.
+            </h2>
+
+            <p class="section-intro">
+                Die Idee hinter Kiek funktioniert überall dort,
+                wo Orte Geschichten erzählen. Deshalb soll aus
+                KiekBorkum Schritt für Schritt eine kleine Familie
+                lokaler Entdecker-Apps entstehen.
+            </p>
+
+
+            <div class="family-grid">
+
+                <article class="family-card">
+
+                    <div class="family-status">
+                        In Entwicklung
+                    </div>
+
+                    <h3>
+                        KiekBorkum
+                    </h3>
+
+                    <p>
+                        Inselgeschichten, besondere Orte und
+                        Entdeckungen auf Borkum.
+                    </p>
+
+                </article>
+
+
+                <article class="family-card">
+
+                    <div class="family-status">
+                        In Planung
+                    </div>
+
+                    <h3>
+                        KiekEmden
+                    </h3>
+
+                    <p>
+                        Hafen, Stadtgeschichte und besondere Orte
+                        in der Seehafenstadt entdecken.
+                    </p>
+
+                </article>
+
+
+                <article class="family-card">
+
+                    <div class="family-status">
+                        Später mehr
+                    </div>
+
+                    <h3>
+                        Kiek…
+                    </h3>
+
+                    <p>
+                        Weitere Orte können folgen.
+                        Das Prinzip bleibt: genauer hinschauen,
+                        Hintergründe entdecken und Geschichten erleben.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         IDEA
+         ====================================================== -->
+
+    <section class="section" id="idee">
+
+        <div class="container idea-grid">
+
+            <div class="quote">
+
+                <p>
+                    „Manchmal steht man direkt vor einer guten
+                    Geschichte – und weiß einfach nichts davon.“
+                </p>
+
+            </div>
+
+
+            <div class="idea-copy">
+
+                <span class="eyebrow">
+                    Die Idee
+                </span>
+
+                <h2>
+                    Ein digitaler Guide,
+                    der den Ort nicht ersetzt.
+                </h2>
+
+                <p>
+                    KiekBorkum soll nicht dafür sorgen,
+                    dass man noch länger auf sein Smartphone schaut.
+                    Im Gegenteil: Die App soll neugierig darauf machen,
+                    den Blick zu heben und die Insel bewusster
+                    wahrzunehmen.
+                </p>
+
+                <p>
+                    Deshalb stehen reale Orte im Mittelpunkt.
+                    Das Smartphone liefert den Kontext –
+                    entdeckt wird draußen.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         CTA
+         ====================================================== -->
+
+    <section class="final-cta" id="status">
+
+        <div class="container">
+
+            <h2>
+                KiekBorkum entsteht gerade.
+            </h2>
+
+            <p>
+                Die App befindet sich aktuell in Entwicklung.
+                Sobald es Neuigkeiten zur Veröffentlichung gibt,
+                findest du sie hier.
+            </p>
+
+            <span class="button button-primary">
+                Demnächst im App Store
+            </span>
+
+            <div class="development-pill">
+
+                <span class="hero-label-dot"></span>
+
+                Entwicklung läuft
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<footer>
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <div class="footer-brand">
+                KiekBorkum
+            </div>
+
+            <div class="copyright">
+                © <span id="year"></span> KiekBorkum
+            </div>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="support.html">
+                Support
+            </a>
+
+            <a href="datenschutz.html">
+                Datenschutz
+            </a>
+
+            <a href="impressum.html">
+                Impressum
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const navLinks =
+        document.getElementById("navLinks");
+
+
+    menuButton.addEventListener("click", () => {
+
+        const isOpen =
+            navLinks.classList.toggle("open");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuButton.textContent =
+            isOpen ? "×" : "☰";
+
+    });
+
+
+    document
+        .querySelectorAll(".nav-links a")
+        .forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                navLinks.classList.remove("open");
+
+                menuButton.textContent = "☰";
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            });
+
+        });
+
+
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+</script>
+
+
 </body>
 </html>
